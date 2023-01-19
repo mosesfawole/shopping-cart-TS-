@@ -35,7 +35,7 @@ const App = () => {
 
   const getTotalItems = () => null;
 
-  const addToCart = () => null;
+  const addToCart = (clickedItem: CartItemType) => null;
   const removeFromCart = () => null;
 
   if (isLoading) return <CircularProgress />;

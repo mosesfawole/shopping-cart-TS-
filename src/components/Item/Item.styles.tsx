@@ -1,3 +1,3 @@
 import styled from "styled-components";
 
-export const wrapper = styled.div``;
+export const Wrapper = styled.div``;
