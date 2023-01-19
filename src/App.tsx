@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 
 // components
+import Item from "./components/Item/Item";
 import Drawer from "@material-ui/core/Drawer";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
@@ -40,7 +41,17 @@ const App = () => {
 
   if (isLoading) return <CircularProgress />;
   if (error) return <div className="">Something went wrong...</div>;
-  return <div className=""></div>;
+  return (
+    <Wrapper>
+      <Grid container spacing={3}>
+        {data?.map((item) => (
+          <Grid item key={item.id} xs={12} sm={4}>
+            <Item item={item} addToCart={addToCart} />
+          </Grid>
+        ))}
+      </Grid>
+    </Wrapper>
+  );
 };
 
 export default App;
