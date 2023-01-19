@@ -9,6 +9,22 @@ import AddShoppingCart from "@material-ui/icons/AddShoppingCart";
 import Badge from "@material-ui/core/Badge";
 
 // styles
+import { Wrapper } from "./App.styles";
+// types
+
+export type CartItemType = {
+  id: number;
+  category: string;
+  description: string;
+  image: string;
+  price: number;
+  title: string;
+  amount: number;
+};
+
+const getProducts = async () => {
+  await (await fetch("https://fakestoreapi.com/products")).json();
+};
 
 const App = () => {
   return <div className=""></div>;
