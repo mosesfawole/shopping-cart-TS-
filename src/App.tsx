@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 
 // components
 import Item from "./components/Item/Item";
+import Cart from "./components/Cart/Cart";
 import Drawer from "@material-ui/core/Drawer";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
@@ -39,15 +40,32 @@ const App = () => {
 
   const getTotalItems = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);
-  const addToCart = (clickedItem: CartItemType) => null;
-  const removeFromCart = () => null;
+  const addToCart = (clickedItem: CartItemType) => {
+    setCartItems((prev) => {
+      const isItemInCart = prev.find((item) => item.id === clickedItem.id);
+
+      if (isItemInCart) {
+        return prev.map((item) =>
+          item.id === clickedItem.id
+            ? { ...item, amount: item.amount + 1 }
+            : item
+        );
+      }
+      return [...prev, { ...clickedItem, amount: 1 }];
+    });
+  };
+  const removeFromCart = () => {};
 
   if (isLoading) return <CircularProgress />;
   if (error) return <div className="">Something went wrong...</div>;
   return (
     <Wrapper>
       <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
-        Cart goes here
+        <Cart
+          cartItems={cartItems}
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+        />
       </Drawer>
       <StyledButton onClick={() => setCartOpen(true)}>
         <Badge badgeContent={getTotalItems(cartItems)} color="error">
